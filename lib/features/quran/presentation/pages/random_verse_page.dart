@@ -1,5 +1,6 @@
 import 'package:daily_message/features/quran/domain/entities/author_entity.dart';
 import 'package:daily_message/features/quran/presentation/cubit/quran_cubit.dart';
+import 'package:daily_message/features/quran/presentation/widgets/show_random_verse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,28 +63,29 @@ class _RandomVersePageState extends State<RandomVersePage> {
                         _changeSelectedAuthor(value);
                       },
                     ),
-                    BlocBuilder<QuranCubit, QuranState>(
-                      builder: (context, state) {
-                        if (state is SurahLoaded) {
-                          return Expanded(
-                            child: ListView.builder(
-                              itemBuilder: (context, index) {
-                                final surah = state.surahs[index];
-                                return ListTile(
-                                  title: Text(surah.name ?? 'n/a'),
-                                  subtitle:
-                                      Text('Ayet sayisi : ${surah.verseCount}'),
-                                );
-                              },
-                            ),
-                          );
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                    ),
+                    const ShowRandomVerseWidget(),
+                    // BlocBuilder<QuranCubit, QuranState>(
+                    //   builder: (context, state) {
+                    //     if (state is SurahLoaded) {
+                    //       return Expanded(
+                    //         child: ListView.builder(
+                    //           itemBuilder: (context, index) {
+                    //             final surah = state.surahs[index];
+                    //             return ListTile(
+                    //               title: Text(surah.name ?? 'n/a'),
+                    //               subtitle:
+                    //                   Text('Ayet sayisi : ${surah.verseCount}'),
+                    //             );
+                    //           },
+                    //         ),
+                    //       );
+                    //     } else {
+                    //       return const Center(
+                    //         child: CircularProgressIndicator(),
+                    //       );
+                    //     }
+                    //   },
+                    // ),
                   ],
                 )
               : const Center(

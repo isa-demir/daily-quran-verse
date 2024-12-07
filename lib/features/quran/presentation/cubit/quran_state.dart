@@ -42,22 +42,26 @@ class QuranPageState extends QuranState {
   final List<AuthorEntity>? authors;
   final AuthorEntity? selectedAuthor;
   final List<SurahEntity>? surahs;
+  final VerseEntity? verseEntity;
 
   const QuranPageState({
     this.selectedAuthor,
     this.authors,
     this.surahs,
+    this.verseEntity,
   });
 
   QuranPageState copyWith({
     List<AuthorEntity>? authors,
     AuthorEntity? selectedAuthor,
     List<SurahEntity>? surahs,
+    VerseEntity? verse,
   }) {
     return QuranPageState(
       authors: authors ?? this.authors,
       selectedAuthor: selectedAuthor ?? this.selectedAuthor,
       surahs: surahs ?? this.surahs,
+      verseEntity: verse ?? verseEntity,
     );
   }
 }
