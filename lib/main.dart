@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => QuranCubit(locator()),
+          create: (context) => QuranCubit(
+            locator(),
+            locator(),
+          ),
         ),
       ],
       child: const MaterialApp(

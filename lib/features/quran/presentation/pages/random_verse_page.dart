@@ -11,10 +11,19 @@ class RandomVersePage extends StatefulWidget {
 }
 
 class _RandomVersePageState extends State<RandomVersePage> {
+  AuthorEntity? _selectedAuthor;
+  List<AuthorEntity> _authors = [];
+
   @override
   void initState() {
     super.initState();
     context.read<QuranCubit>().getAuthors();
+  }
+
+  _changeSelectedAuthor(AuthorEntity? newAuthor) {
+    setState(() {
+      _selectedAuthor = newAuthor;
+    });
   }
 
   @override
@@ -25,43 +34,61 @@ class _RandomVersePageState extends State<RandomVersePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: BlocBuilder<QuranCubit, QuranState>(
-          builder: (context, state) {
-            if (state is QuranPageState) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Meal Yazarı',
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  DropdownButton<AuthorEntity>(
-                    isExpanded: true,
-                    value: state.selectedAuthor,
-                    items: state.authors.map((e) {
-                      return DropdownMenuItem(
-                        value: e,
-                        child: Text(e.name ?? 'n/a'),
-                      );
-                    }).toList(),
-                    onChanged: (value) {},
-                  ),
-                ],
-              );
-            } else if (state is QuranLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is QuranError) {
-              return Center(
-                child: Text(state.errMsg),
-              );
-            } else {
-              return const Center(
-                child: Text('Beklenmedik bir hata olustu!'),
-              );
+        child: BlocListener<QuranCubit, QuranState>(
+          listener: (context, state) {
+            if (state is AuthorLoaded) {
+              _authors = state.authors;
+              _changeSelectedAuthor(state.authors.first);
             }
           },
+          child: _authors.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Meal Yazarı',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    DropdownButton<AuthorEntity>(
+                      isExpanded: true,
+                      value: _selectedAuthor,
+                      items: _authors.map((e) {
+                        return DropdownMenuItem(
+                          value: e,
+                          child: Text(e.name ?? 'n/a'),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        _changeSelectedAuthor(value);
+                      },
+                    ),
+                    BlocBuilder<QuranCubit, QuranState>(
+                      builder: (context, state) {
+                        if (state is SurahLoaded) {
+                          return Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                final surah = state.surahs[index];
+                                return ListTile(
+                                  title: Text(surah.name ?? 'n/a'),
+                                  subtitle:
+                                      Text('Ayet sayisi : ${surah.verseCount}'),
+                                );
+                              },
+                            ),
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                ),
         ),
       ),
     );

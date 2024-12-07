@@ -29,25 +29,35 @@ class QuranError extends QuranState {
   List<Object> get props => [errMsg];
 }
 
-class QuranPageState extends QuranState {
-  final List<AuthorEntity> authors;
-  final AuthorEntity selectedAuthor;
+class SurahLoaded extends QuranState {
+  final List<SurahEntity> surahs;
 
-  const QuranPageState({
-    required this.selectedAuthor,
-    required this.authors,
-  });
+  const SurahLoaded(this.surahs);
 
   @override
-  List<Object> get props => [authors];
+  List<Object> get props => [surahs];
+}
+
+class QuranPageState extends QuranState {
+  final List<AuthorEntity>? authors;
+  final AuthorEntity? selectedAuthor;
+  final List<SurahEntity>? surahs;
+
+  const QuranPageState({
+    this.selectedAuthor,
+    this.authors,
+    this.surahs,
+  });
 
   QuranPageState copyWith(
     List<AuthorEntity>? authors,
     AuthorEntity? selectedAuthor,
+    List<SurahEntity>? surahs,
   ) {
     return QuranPageState(
       authors: authors ?? this.authors,
       selectedAuthor: selectedAuthor ?? this.selectedAuthor,
+      surahs: surahs ?? this.surahs,
     );
   }
 }
