@@ -14,9 +14,9 @@ class ApiService {
   final String _baseUrl = 'https://api.acikkuran.com';
 
   Future<Response> getRequest(
-      String endPoint,
+      {required String endPoint,
       Map<String, dynamic>? queryParameters,
-      Map<String, dynamic>? headers) async {
+      Map<String, dynamic>? headers}) async {
     final response = await _dio.get(
       '$_baseUrl$endPoint',
       queryParameters: queryParameters,
