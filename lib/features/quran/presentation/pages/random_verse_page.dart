@@ -24,6 +24,7 @@ class _RandomVersePageState extends State<RandomVersePage> {
   _changeSelectedAuthor(AuthorEntity? newAuthor) {
     setState(() {
       _selectedAuthor = newAuthor;
+      context.read<QuranCubit>().changeSelectedAuthor(newAuthor!);
     });
   }
 
@@ -63,7 +64,9 @@ class _RandomVersePageState extends State<RandomVersePage> {
                         _changeSelectedAuthor(value);
                       },
                     ),
-                    const ShowRandomVerseWidget(),
+                    ShowRandomVerseWidget(
+                      selectedAuthor: _selectedAuthor!,
+                    ),
                     // BlocBuilder<QuranCubit, QuranState>(
                     //   builder: (context, state) {
                     //     if (state is SurahLoaded) {

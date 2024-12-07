@@ -66,6 +66,15 @@ class QuranCubit extends Cubit<QuranState> {
     );
   }
 
+  Future<void> changeSelectedAuthor(AuthorEntity newAuthor) async {
+    _quranPageState = _quranPageState!.copyWith(
+      selectedAuthor: newAuthor,
+    );
+
+    await getVerse(_quranPageState!.verseEntity!.surah!.id!,
+        _quranPageState!.verseEntity!.verseNumber!, newAuthor.id!);
+  }
+
   int getRandom(int max) {
     var random = Random();
     int randomNumber = random.nextInt(max);

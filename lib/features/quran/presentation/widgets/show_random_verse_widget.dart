@@ -1,9 +1,12 @@
+import 'package:daily_message/features/quran/domain/entities/author_entity.dart';
 import 'package:daily_message/features/quran/presentation/cubit/quran_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShowRandomVerseWidget extends StatelessWidget {
-  const ShowRandomVerseWidget({super.key});
+  const ShowRandomVerseWidget({super.key, required this.selectedAuthor});
+
+  final AuthorEntity selectedAuthor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +27,12 @@ class ShowRandomVerseWidget extends StatelessWidget {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 10),
                   Text(verse.translation!.text!),
-                  Text(verse.translation?.author?.name ?? 'n/a'),
+                  Text(
+                    '\n${verse.surah!.name} Suresi - ${verse.verseNumber}. Ayet',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  )
                 ],
               ),
             ),
