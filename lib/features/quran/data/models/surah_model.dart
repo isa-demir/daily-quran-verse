@@ -1,3 +1,4 @@
+import 'package:daily_message/features/quran/domain/entities/surah_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'surah_model.g.dart';
@@ -50,6 +51,19 @@ class SurahModel {
       _$SurahModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SurahModelToJson(this);
+
+  SurahEntity toEntity() {
+    return SurahEntity(
+      id: id,
+      name: name,
+      nameEn: nameEn,
+      slug: slug,
+      verseCount: verseCount,
+      pageNumber: pageNumber,
+      nameOriginal: nameOriginal,
+      audio: audio?.toEntity(),
+    );
+  }
 }
 
 @JsonSerializable()
@@ -74,4 +88,13 @@ class AudioModel {
       _$AudioModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$AudioModelToJson(this);
+
+  AudioEntity toEntity() {
+    return AudioEntity(
+      mp3: mp3,
+      duration: duration,
+      mp3En: mp3En,
+      durationEn: durationEn,
+    );
+  }
 }
