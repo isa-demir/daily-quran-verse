@@ -15,8 +15,7 @@ class QuranRepositoryImpl implements IQuranRepository {
       final resp = await _quranRemoteDatasource.getAuthors();
 
       if (resp.data != null) {
-        final authors =
-            resp.data!.map((e) => AuthorEntity.fromJson(e.toJson())).toList();
+        final authors = resp.data!.map((e) => e.toEntity()).toList();
         return Right(authors);
       } else {
         return Left(Failure('Yazarlar yuklenemedi!'));

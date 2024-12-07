@@ -1,3 +1,4 @@
+import 'package:daily_message/features/quran/domain/entities/author_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -42,6 +43,16 @@ class AuthorModel extends Equatable {
       _$AuthorModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthorModelToJson(this);
+
+  AuthorEntity toEntity() {
+    return AuthorEntity(
+      id: id,
+      description: description,
+      language: language,
+      name: name,
+      url: url,
+    );
+  }
 
   @override
   List<Object?> get props => [
