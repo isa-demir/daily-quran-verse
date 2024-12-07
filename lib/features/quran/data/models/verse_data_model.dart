@@ -1,5 +1,6 @@
 import 'package:daily_message/features/quran/data/models/author_model.dart';
 import 'package:daily_message/features/quran/data/models/surah_model.dart';
+import 'package:daily_message/features/quran/domain/entities/verse_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'verse_data_model.g.dart';
@@ -60,6 +61,22 @@ class VerseModel {
       _$VerseModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$VerseModelToJson(this);
+
+  VerseEntity toEntity() {
+    return VerseEntity(
+      id: id,
+      surah: surah?.toEntity(),
+      verseNumber: verseNumber,
+      verse: verse,
+      verseSimplified: verseSimplified,
+      page: page,
+      juzNumber: juzNumber,
+      verseWithoutVowel: verseWithoutVowel,
+      transcription: transcription,
+      transcriptionEn: transcriptionEn,
+      translation: translation?.toEntity(),
+    );
+  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -80,4 +97,13 @@ class TranslationModel {
       _$TranslationModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TranslationModelToJson(this);
+
+  TranslationEntity toEntity() {
+    return TranslationEntity(
+      id: id,
+      author: author?.toEntity(),
+      text: text,
+      footnotes: footnotes,
+    );
+  }
 }

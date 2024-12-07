@@ -3,6 +3,7 @@ import 'package:daily_message/features/quran/data/repositories/quran_repository_
 import 'package:daily_message/features/quran/domain/repositories/quran_repository.dart';
 import 'package:daily_message/features/quran/domain/usecases/get_authors_usecase.dart';
 import 'package:daily_message/features/quran/domain/usecases/get_surahs_usecase.dart';
+import 'package:daily_message/features/quran/domain/usecases/get_verse_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -24,5 +25,8 @@ void initLocator() {
   );
   locator.registerLazySingleton<GetSurahsUsecase>(
     () => GetSurahsUsecase(locator()),
+  );
+  locator.registerLazySingleton<GetVerseUsecase>(
+    () => GetVerseUsecase(locator()),
   );
 }
