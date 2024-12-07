@@ -18,10 +18,10 @@ class QuranRepositoryImpl implements IQuranRepository {
         final authors = resp.data!.map((e) => e.toEntity()).toList();
         return Right(authors);
       } else {
-        return Left(Failure('Yazarlar yuklenemedi!'));
+        return Left(Failure(message: 'Yazarlar yuklenemedi!'));
       }
     } catch (e) {
-      return Left(Failure('Hata :${e.toString()}'));
+      return Left(Failure(message: 'Hata :${e.toString()}'));
     }
   }
 }

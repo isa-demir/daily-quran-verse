@@ -15,7 +15,7 @@ class QuranCubit extends Cubit<QuranState> {
     final res = await _getAuthorsUsecase.call();
 
     res.fold(
-      (failrue) => emit(QuranError(failrue.message ?? 'hata')),
+      (failrue) => emit(QuranError(failrue.message)),
       (authors) {
         _quranPageState = QuranPageState(
           authors: authors,

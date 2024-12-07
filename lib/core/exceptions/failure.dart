@@ -1,10 +1,23 @@
 class Failure {
-  String? message;
+  final String message;
+  final String? details;
 
-  Failure([String message = 'Bir hata olustu!']);
+  Failure({required this.message, this.details});
+
+  @override
+  String toString() {
+    return "Failure: $message, Details: $details";
+  }
 }
 
-class ServerFailure extends Failure {
-  ServerFailure([String? message])
-      : super(message ?? 'Sunucu hatasi meydana geldi!');
+class NetworkFailure extends Failure {
+  NetworkFailure({required super.message, super.details});
+}
+
+class DatabaseFailure extends Failure {
+  DatabaseFailure({required super.message, super.details});
+}
+
+class ValidationFailure extends Failure {
+  ValidationFailure({required super.message, super.details});
 }
