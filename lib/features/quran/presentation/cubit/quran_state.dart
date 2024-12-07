@@ -49,11 +49,11 @@ class QuranPageState extends QuranState {
     this.surahs,
   });
 
-  QuranPageState copyWith(
+  QuranPageState copyWith({
     List<AuthorEntity>? authors,
     AuthorEntity? selectedAuthor,
     List<SurahEntity>? surahs,
-  ) {
+  }) {
     return QuranPageState(
       authors: authors ?? this.authors,
       selectedAuthor: selectedAuthor ?? this.selectedAuthor,

@@ -22,6 +22,8 @@ class QuranCubit extends Cubit<QuranState> {
       (failrue) => emit(QuranError(failrue.message)),
       (authors) async {
         emit(AuthorLoaded(authors));
+        _quranPageState =
+            QuranPageState(authors: authors, selectedAuthor: authors.first);
         await getSurahs();
       },
     );
@@ -33,7 +35,10 @@ class QuranCubit extends Cubit<QuranState> {
 
     res.fold(
       (failrue) => emit(QuranError(failrue.message)),
-      (surahs) => emit(SurahLoaded(surahs)),
+      (surahs) {
+        emit(SurahLoaded(surahs));
+        _quranPageState = _quranPageState?.copyWith(surahs: surahs);
+      },
     );
   }
 }
