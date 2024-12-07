@@ -7,7 +7,7 @@ part 'quran_state.dart';
 
 class QuranCubit extends Cubit<QuranState> {
   QuranCubit(this._getAuthorsUsecase) : super(QuranInitial());
-
+  QuranPageState? _quranPageState;
   final GetAuthorsUsecase _getAuthorsUsecase;
 
   Future<void> getAuthors() async {
@@ -16,7 +16,13 @@ class QuranCubit extends Cubit<QuranState> {
 
     res.fold(
       (failrue) => emit(QuranError(failrue.message ?? 'hata')),
-      (authors) => emit(AuthorLoaded(authors)),
+      (authors) {
+        _quranPageState = QuranPageState(
+          authors: authors,
+          selectedAuthor: authors.first,
+        );
+        emit(_quranPageState!);
+      },
     );
   }
 }
